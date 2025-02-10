@@ -1,0 +1,68 @@
+
+
+
+
+### Verification
+GET http://localhost:8080/auth/registration/verification/{profileId}
+
+
+### Registration Sms Verification
+POST localhost:8080/auth/registration/sms-verification
+Content-Type: app
+
+
+
+lication/json
+
+{
+  "phone": "998931051739",
+  "code": "81085"
+}
+
+### Registration Sms Verification Resend
+POST localhost:8080/auth/registration/sms-verification-resend
+Content-Type: application/json
+
+{
+  "phone": "998931051739"
+}
+
+### Reset Password
+POST localhost:8080/auth/reset-password
+Content-Type: application/json
+
+{
+  "username": "abahriddin67@gmail.com"
+}
+
+
+### Reset Password Confirm
+POST localhost:8080/auth/reset-password-confirm
+Content-Type: application/json
+
+{
+  "username": "abahriddin67@gmail.com",
+  "confirmCode": "80823",
+  "password": "123"
+}
+
+
+### Login
+POST localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "abahriddin67@gmail.com",
+  "password": "123"
+}
+
+
+### Login As Admin
+POST localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "adminjon@gmail.com",
+  "password": "123456"
+}
+

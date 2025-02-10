@@ -1,0 +1,20 @@
+### Eskiz Login
+POST https://notify.eskiz.uz/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "abahriddin67@gmail.com",
+  "password": "QwTEuUesHFI2BN2WoVkeLnreyHsmZrazrskLld1y"
+}
+
+
+### Eskiz sms send
+POST https://notify.eskiz.uz/api/message/sms/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzk1OTgxNzksImlhdCI6MTczNzAwNjE3OSwicm9sZSI6InRlc3QiLCJzaWduIjoiNGQ3YzgyNmNiN2UwYzc0YWYxMjdkMzIzMDk0NzA0NWI1NTkyN2VmNzFlNGE3ZDcxZTBhMGQ0YWY4MjY1ZWI0MiIsInN1YiI6Ijk1MzEifQ.aZf-f9svYy1J7uam8NROuF4--moajuHb_CgPCluOHpQ
+
+{
+  "mobil_phone": "998931051739",
+  "message": "Bu Eskiz dan test",
+  "from": "4546"
+}

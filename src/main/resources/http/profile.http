@@ -1,0 +1,49 @@
+### Update profile detail
+PUT localhost:8080/profile/detail
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTYwIiwic3ViIjoiOTk4OTMxMDUxNzM5IiwiaWF0IjoxNzM3MTk1NDk0LCJleHAiOjE3MzcyODE4OTR9.u5LbDeEbT0Aym-U_DGEV4MeXS-teF2t2U17sLIXhnF_eVj3hGbPAK3OpNZSihx0iYgByGTywkTk-MPSHy18P7A
+
+{
+  "name": "Savriddin"
+}
+
+
+### Update password detail
+PUT localhost:8080/profile/password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTYwIiwic3ViIjoiOTk4OTMxMDUxNzM5IiwiaWF0IjoxNzM3MTk1NDk0LCJleHAiOjE3MzcyODE4OTR9.u5LbDeEbT0Aym-U_DGEV4MeXS-teF2t2U17sLIXhnF_eVj3hGbPAK3OpNZSihx0iYgByGTywkTk-MPSHy18P7A
+
+{
+  "currentPswd": "111111",
+  "newPswd": "123"
+}
+
+
+### Update Username
+PUT localhost:8080/profile/username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTYwIiwic3ViIjoiOTk4OTMxMDUxNzQ0IiwiaWF0IjoxNzM3MzUyNjQ0LCJleHAiOjE3Mzc0MzkwNDR9.ZbrZPMDjUUSPXIG3o_8orgIgFJdFUmoq-OovLqFb1Gtq6kPqv60PM0-zh5REJrOaE1oNSz7L_goAuWyHWXInAA
+
+{
+  "username": "998931051739"
+}
+
+
+### Update Username Confirm
+PUT localhost:8080/profile/username/confirm
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTYwIiwic3ViIjoiOTk4OTMxMDUxNzQ0IiwiaWF0IjoxNzM3MzUyNjQ0LCJleHAiOjE3Mzc0MzkwNDR9.ZbrZPMDjUUSPXIG3o_8orgIgFJdFUmoq-OovLqFb1Gtq6kPqv60PM0-zh5REJrOaE1oNSz7L_goAuWyHWXInAA
+
+{
+  "code": "14803"
+}
+
+
+### Update Profile Photo
+PUT localhost:8080/profile/photo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTYwIiwic3ViIjoiOTk4OTMxMDUxNzM5IiwiaWF0IjoxNzM3MzcyNjMyLCJleHAiOjE3Mzc0NTkwMzJ9.RKO79HWH07elvXjG4aalrNre8u6emjQRzZEyc4evoVnvSspOd4dPg6BXeLfrx5Hopks51R-uyquwG46Na-OcHQ
+
+{
+  "photoId": "f6c083bf-181e-46f0-a9fb-796b65b91d30.png"
+}

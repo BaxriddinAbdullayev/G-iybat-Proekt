@@ -1,0 +1,51 @@
+### Create Post
+POST localhost:8080/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTU5Iiwic3ViIjoiYWJhaHJpZGRpbjY3QGdtYWlsLmNvbSIsImlhdCI6MTczNzU0NjQxMywiZXhwIjoxNzM3NjMyODEzfQ.u6nWQX81DgFDx2mU4VEXiqKcO3mEY3BYgowOQZaLlUJ-JmxqAWeLl1TeGP45ufjZxt3_v40tfuBUYETIzMqmfw
+
+{
+  "title": "Post 4",
+  "content": "To'rtinchi postga Xo'sh kelibsiz!",
+  "photo": {
+    "id": "d15757b0-5566-4937-b524-de3206b657dd.png"
+  }
+}
+
+
+### Get All Post
+GET localhost:8080/post/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwiaWQiOiIxIiwic3ViIjoiYWRtaW5qb25AZ21haWwuY29tIiwiaWF0IjoxNzM3NTQ2NTAyLCJleHAiOjE3Mzc2MzI5MDJ9.f1jglPXB8YbHBeC0kvXIuM-kFqHT9xq5gCZe-hVeVgSPZ1BI75JMlGiICAh9hdVgFQMNbDv4xbJeSQqgbnyLrg
+
+
+### Get Post By Id
+GET localhost:8080/post/public/5dcd2f6f-ac62-45d4-bf6d-dab55df99060
+Content-Type: application/json
+
+
+### Update Post
+PUT localhost:8080/post/84514222-0823-44fb-938a-6e0bbeafda01
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwiaWQiOiIxIiwic3ViIjoiYWRtaW5qb25AZ21haWwuY29tIiwiaWF0IjoxNzM3NTU0NTgzLCJleHAiOjE3Mzc2NDA5ODN9.3WJyc0_U6S9h7yGWcLH2-k_1snMcK9tVUwRcfIHiqsQ7QHJki1ollSG-S8Wbd6Z1BvvMagfCg4gsOyRcyNAz8A
+
+{
+  "title": "Post 4.2",
+  "content": "To'rtinchi.Ikkinchi postga Xo'sh kelibsiz!",
+  "photo": {
+    "id": "d15757b0-5566-4937-b524-de3206b657dd.png"
+  }
+}
+
+
+### Delete Post
+DELETE localhost:8080/post/8c6a4238-ba8c-4dfc-8a87-346283c44736
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwiaWQiOiIxIiwic3ViIjoiYWRtaW5qb25AZ21haWwuY29tIiwiaWF0IjoxNzM3NTQ2NTAyLCJleHAiOjE3Mzc2MzI5MDJ9.f1jglPXB8YbHBeC0kvXIuM-kFqHT9xq5gCZe-hVeVgSPZ1BI75JMlGiICAh9hdVgFQMNbDv4xbJeSQqgbnyLrg
+
+
+### Filter Post
+POST localhost:8080/post/public/filter?page=2&size=2
+Content-Type: application/json
+
+{
+  "query": "xol"
+}

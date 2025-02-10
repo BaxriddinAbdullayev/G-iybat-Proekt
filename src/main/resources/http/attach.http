@@ -1,0 +1,13 @@
+### Upload Attach
+POST http://localhost:8080/attach/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiMTYwIiwic3ViIjoiOTk4OTMxMDUxNzM5IiwiaWF0IjoxNzM3NTM3NTY1LCJleHAiOjE3Mzc2MjM5NjV9.zgJ7qcuFTAL3pAHXv-I2pSv0REP2Qs3wvThKPgylx2MQhMkaHHIBl0qAM9bjmtONcdpXgxPoDAdLH3XqudbaNw
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="Screenshot 2024-07-03 at 19.38.28.png"
+
+< /Users/bahriddin/Desktop/windows works/upload/upload_files/Screenshot 2024-07-03 at 19.38.28.png
+
+
+### Open Attach
+GET http://localhost:8080/attach/open/88a581c5-7940-4d72-8abc-90ddf17a8edd.png

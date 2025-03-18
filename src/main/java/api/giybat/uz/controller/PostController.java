@@ -3,6 +3,7 @@ package api.giybat.uz.controller;
 import api.giybat.uz.dto.post.PostCreateDTO;
 import api.giybat.uz.dto.post.PostDTO;
 import api.giybat.uz.dto.post.PostFilterDTO;
+import api.giybat.uz.dto.post.SimilarPostListDTO;
 import api.giybat.uz.service.PostService;
 import api.giybat.uz.util.PageUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -61,5 +62,11 @@ public class PostController {
                                                 @RequestParam(value = "page", defaultValue = "1") int page,
                                                 @RequestParam(value = "size", defaultValue = "10") int size) {
         return ResponseEntity.ok(postService.filter(dto, page -1 ,size));
+    }
+
+    @PostMapping("/public/similar")
+    @Operation(summary = "Get similar post list", description = "Api used for getting similar post list")
+    public ResponseEntity<List<PostDTO>> similarPostList(@RequestBody SimilarPostListDTO dto) {
+        return ResponseEntity.ok(postService.getSimilarPostList(dto));
     }
 }

@@ -43,9 +43,19 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUixST0xFX0FET
 
 
 ### Filter Post
-POST localhost:8080/post/public/filter?page=2&size=2
+POST localhost:8080/post/public/filter?page=1&size=3
 Content-Type: application/json
 
 {
-  "query": "xol"
+  "query": null,
+  "exceptId": "71701365-6465-4850-800a-d712e85bd53d"
+}
+
+
+### Filter Post
+POST localhost:8080/post/public/similar
+Content-Type: application/json
+
+{
+  "exceptId": "71701365-6465-4850-800a-d712e85bd53d"
 }

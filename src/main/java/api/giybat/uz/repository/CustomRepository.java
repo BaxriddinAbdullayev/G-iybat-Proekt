@@ -26,6 +26,11 @@ public class CustomRepository {
             queryBuilder.append(" and lower(p.title) like :query ");
             params.put("query", "%" + filter.getQuery().toLowerCase() + "%");
         }
+        if (filter.getExceptId() != null) {
+            queryBuilder.append(" and p.id != :exceptId ");
+            params.put("exceptId", filter.getExceptId());
+        }
+
 
         StringBuilder selectBuilder = new StringBuilder("Select p From PostEntity p ")
                 .append(queryBuilder)

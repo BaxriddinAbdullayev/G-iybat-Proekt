@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class PostFilterDTO {
     private String query;
+    private String exceptId;
 }

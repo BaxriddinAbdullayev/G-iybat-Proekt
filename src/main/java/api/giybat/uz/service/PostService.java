@@ -4,6 +4,7 @@ import api.giybat.uz.dto.FilterResultDTO;
 import api.giybat.uz.dto.post.PostCreateDTO;
 import api.giybat.uz.dto.post.PostDTO;
 import api.giybat.uz.dto.post.PostFilterDTO;
+import api.giybat.uz.dto.post.SimilarPostListDTO;
 import api.giybat.uz.entity.PostEntity;
 import api.giybat.uz.enums.ProfileRole;
 import api.giybat.uz.exps.AppBadException;
@@ -92,6 +93,13 @@ public class PostService {
         FilterResultDTO<PostEntity> resultDTO = customRepository.filter(filterDTO, page, size);
         List<PostDTO> dtoList = resultDTO.getList().stream().map(this::toInfoDTO).toList();
         return new PageImpl<>(dtoList, PageRequest.of(page,size), resultDTO.getTotalCount());
+    }
+
+    public List<PostDTO> getSimilarPostList(SimilarPostListDTO dto) {
+        List<PostEntity> postEntityList = postRepository.getSimilarPostList(dto.getExceptId());
+        List<PostDTO> dtoList = postEntityList.stream()
+                .map(this::toInfoDTO).toList();
+        return dtoList;
     }
 
     public PostDTO toDTO(PostEntity entity) {

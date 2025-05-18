@@ -1,9 +1,7 @@
 package api.giybat.uz.controller;
 
-import api.giybat.uz.dto.post.PostCreateDTO;
-import api.giybat.uz.dto.post.PostDTO;
-import api.giybat.uz.dto.post.PostFilterDTO;
-import api.giybat.uz.dto.post.SimilarPostListDTO;
+import api.giybat.uz.dto.AppResponse;
+import api.giybat.uz.dto.post.*;
 import api.giybat.uz.service.PostService;
 import api.giybat.uz.util.PageUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +9,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class PostController {
     @Operation(summary = "Profile Post List", description = "Get all profile post list")
     public ResponseEntity<Page<PostDTO>> profilePostList(@RequestParam(value = "page", defaultValue = "1") int page,
                                                          @RequestParam(value = "size", defaultValue = "12") int size) {
-        return ResponseEntity.ok(postService.getProfilePostList(PageUtil.page(page),size));
+        return ResponseEntity.ok(postService.getProfilePostList(PageUtil.page(page), size));
     }
 
     @GetMapping("/public/{id}")
@@ -47,12 +47,12 @@ public class PostController {
     @Operation(summary = "Update Post", description = "Api used for post update")
     public ResponseEntity<PostDTO> update(@PathVariable("id") String id,
                                           @Valid @RequestBody PostCreateDTO dto) {
-        return ResponseEntity.ok(postService.update(id,dto));
+        return ResponseEntity.ok(postService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete Post By Id", description = "Api used for deleting post")
-    public ResponseEntity<Boolean> delete(@PathVariable("id") String id) {
+    public ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id) {
         return ResponseEntity.ok(postService.delete(id));
     }
 
@@ -61,12 +61,21 @@ public class PostController {
     public ResponseEntity<Page<PostDTO>> filter(@Valid @RequestBody PostFilterDTO dto,
                                                 @RequestParam(value = "page", defaultValue = "1") int page,
                                                 @RequestParam(value = "size", defaultValue = "10") int size) {
-        return ResponseEntity.ok(postService.filter(dto, page -1 ,size));
+        return ResponseEntity.ok(postService.filter(dto, PageUtil.page(page), size));
     }
 
     @PostMapping("/public/similar")
     @Operation(summary = "Get similar post list", description = "Api used for getting similar post list")
     public ResponseEntity<List<PostDTO>> similarPostList(@RequestBody SimilarPostListDTO dto) {
         return ResponseEntity.ok(postService.getSimilarPostList(dto));
+    }
+
+    @PostMapping("/filter")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(summary = "Post filter for Admin", description = "Api used for filtering post list. Api for Admin")
+    public ResponseEntity<PageImpl<PostDTO>> filter(@RequestBody PostAdminFilterDTO dto,
+                                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+        return ResponseEntity.ok(postService.adminFilter(dto, PageUtil.page(page), size));
     }
 }

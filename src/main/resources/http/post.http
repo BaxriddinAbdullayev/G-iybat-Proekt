@@ -59,3 +59,14 @@ Content-Type: application/json
 {
   "exceptId": "71701365-6465-4850-800a-d712e85bd53d"
 }
+
+
+### Admin Post Filter
+POST localhost:8080/post/filter?page=1&size=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6IjE1OSIsInN1YiI6ImFiYWhyaWRkaW42N0BnbWFpbC5jb20iLCJpYXQiOjE3NDU1ODg1MTEsImV4cCI6MTc0NTY3NDkxMX0.ic6oPjeXE1JEVOXjQL9bkqhHedsgQUDdvrZhGAW9kM0RIM5gPN27GTsnPIRaAJvzj0vQsjWh-JJolH14JCEWhw
+
+{
+  "postQuery": null,
+  "profileQuery": "Savriddinjon"
+}

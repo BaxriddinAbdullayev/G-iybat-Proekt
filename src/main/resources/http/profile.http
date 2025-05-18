@@ -47,3 +47,29 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoiM
 {
   "photoId": "f6c083bf-181e-46f0-a9fb-796b65b91d30.png"
 }
+
+
+### Profile Filter
+POST localhost:8080/profile/filter
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6IjE1OSIsInN1YiI6ImFiYWhyaWRkaW42N0BnbWFpbC5jb20iLCJpYXQiOjE3NDM4Njg1MjksImV4cCI6MTc0Mzk1NDkyOX0.GZTh5qCk7kxWA1l_cQJiKykX6EKCWJdk9S1MqwmTguk3FbZAhhEENYchegLNBKuE1vhvmH6LkX6NqSW26ArtAQ
+
+{
+  "query": "af"
+}
+
+
+### Profile Change Status
+PUT localhost:8080/profile/status/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6IjE1OSIsInN1YiI6ImFiYWhyaWRkaW42N0BnbWFpbC5jb20iLCJpYXQiOjE3NDM4NTM5MDEsImV4cCI6MTc0Mzk0MDMwMX0.oBWW1ki5v3r5qmRC3cIFK2T-iXiLMXnPxlES3gckzHYQXYAZlginy74DU51_0NtqGqAn1R7iFltOXnBRbDc7yw
+
+{
+  "status": "ACTIVE"
+}
+
+
+### Profile delete
+DELETE localhost:8080/profile/159
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6IjE1OSIsInN1YiI6ImFiYWhyaWRkaW42N0BnbWFpbC5jb20iLCJpYXQiOjE3NDM4NTM5MDEsImV4cCI6MTc0Mzk0MDMwMX0.oBWW1ki5v3r5qmRC3cIFK2T-iXiLMXnPxlES3gckzHYQXYAZlginy74DU51_0NtqGqAn1R7iFltOXnBRbDc7yw

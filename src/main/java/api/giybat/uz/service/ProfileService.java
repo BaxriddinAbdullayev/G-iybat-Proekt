@@ -2,24 +2,33 @@ package api.giybat.uz.service;
 
 import api.giybat.uz.dto.AppResponse;
 import api.giybat.uz.dto.CodeConfirmDTO;
+import api.giybat.uz.dto.ProfileDTO;
 import api.giybat.uz.dto.profile.ProfileDetailUpdateDTO;
+import api.giybat.uz.dto.profile.ProfileFilterDTO;
 import api.giybat.uz.dto.profile.ProfilePasswordUpdateDTO;
 import api.giybat.uz.dto.profile.ProfileUsernameUpdateDTO;
 import api.giybat.uz.entity.ProfileEntity;
+import api.giybat.uz.entity.ProfileRoleEntity;
 import api.giybat.uz.enums.AppLanguage;
+import api.giybat.uz.enums.GeneralStatus;
 import api.giybat.uz.enums.ProfileRole;
 import api.giybat.uz.exps.AppBadException;
+import api.giybat.uz.mapper.ProfileDetailMapper;
 import api.giybat.uz.repository.ProfileRepository;
 import api.giybat.uz.repository.ProfileRoleRepository;
 import api.giybat.uz.util.EmailUtil;
 import api.giybat.uz.util.JwtUtil;
 import api.giybat.uz.util.PhoneUtil;
 import api.giybat.uz.util.SpringSecurityUtil;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,7 +112,7 @@ public class ProfileService {
         ProfileEntity profile = getById(profileId);
         profileRepository.updatePhoto(profileId, photoId);
 
-        if(profile.getPhotoId() != null && !profile.getPhotoId().equals(photoId)){
+        if (profile.getPhotoId() != null && !profile.getPhotoId().equals(photoId)) {
             attachService.delete(profile.getPhotoId()); // delete old image
         }
         return new AppResponse<>(bundleService.getMessage("profile.photo.update.success", lang));
@@ -113,5 +122,63 @@ public class ProfileService {
         return profileRepository.findByIdAndVisibleTrue(id).orElseThrow(() -> {
             throw new AppBadException("Profile not found");
         });
+    }
+
+    public PageImpl<ProfileDTO> filter(@Valid ProfileFilterDTO dto, int page, int size, AppLanguage lang) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<ProfileDetailMapper> filterResult = null;
+        if (dto.getQuery() == null) {
+            filterResult = profileRepository.filter(pageRequest);
+        } else {
+            filterResult = profileRepository.filter("%" + dto.getQuery().toLowerCase() + "%", pageRequest);
+        }
+
+        List<ProfileDTO> resultList = filterResult.stream().map(this::toDTO).toList();
+        return new PageImpl<>(resultList, pageRequest, filterResult.getTotalElements());
+    }
+
+    public AppResponse<String> changeStatus(Integer id, GeneralStatus status, AppLanguage lang) {
+        profileRepository.changeStatus(id, status);
+        return new AppResponse<>(bundleService.getMessage("profile.detail.update.success", lang));
+    }
+
+    public AppResponse<String> delete(Integer id, AppLanguage lang) {
+        profileRepository.delete(id);
+        return new AppResponse<>(bundleService.getMessage("profile.delete.success", lang));
+    }
+
+    public ProfileDTO toDTO(ProfileEntity entity) {
+        ProfileDTO dto = new ProfileDTO();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setUsername(entity.getUsername());
+
+        if (entity.getRoleList() != null) {
+            List<ProfileRole> roleList = entity.getRoleList().stream().map(ProfileRoleEntity::getRoles).toList();
+            dto.setRoleList(roleList);
+        }
+        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setPhoto(attachService.attachDTO(entity.getPhotoId()));
+        dto.setStatus(entity.getStatus());
+        return dto;
+    }
+
+    public ProfileDTO toDTO(ProfileDetailMapper mapper) {
+        ProfileDTO dto = new ProfileDTO();
+        dto.setId(mapper.getId());
+        dto.setName(mapper.getName());
+        dto.setUsername(mapper.getUsername());
+
+        if (mapper.getRoles() != null) {
+            List<ProfileRole> roleList = Arrays.stream(mapper.getRoles().split(","))
+                    .map(roleName -> ProfileRole.valueOf(roleName))
+                    .toList();
+            dto.setRoleList(roleList);
+        }
+        dto.setCreatedDate(mapper.getCreatedDate());
+        dto.setPhoto(attachService.attachDTO(mapper.getPhotoId()));
+        dto.setStatus(mapper.getStatus());
+        dto.setPostCount(mapper.getPostCount());
+        return dto;
     }
 }

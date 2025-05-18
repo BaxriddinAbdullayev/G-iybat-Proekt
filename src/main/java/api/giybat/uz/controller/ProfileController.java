@@ -2,16 +2,17 @@ package api.giybat.uz.controller;
 
 import api.giybat.uz.dto.AppResponse;
 import api.giybat.uz.dto.CodeConfirmDTO;
-import api.giybat.uz.dto.profile.ProfileDetailUpdateDTO;
-import api.giybat.uz.dto.profile.ProfilePasswordUpdateDTO;
-import api.giybat.uz.dto.profile.ProfilePhotoUpdateDTO;
-import api.giybat.uz.dto.profile.ProfileUsernameUpdateDTO;
+import api.giybat.uz.dto.ProfileDTO;
+import api.giybat.uz.dto.profile.*;
 import api.giybat.uz.enums.AppLanguage;
 import api.giybat.uz.service.ProfileService;
+import api.giybat.uz.util.PageUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -54,11 +55,41 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.updateUsernameConfirm(dto, lang));
     }
 
+    @PostMapping("/filter")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<PageImpl<ProfileDTO>> filter(
+            @Valid @RequestBody ProfileFilterDTO dto,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang
+    ) {
+        return ResponseEntity.ok(profileService.filter(dto, PageUtil.page(page), size, lang));
+    }
+
     @PutMapping("/photo")
     public ResponseEntity<AppResponse<String>> updatePhoto(
             @Valid @RequestBody ProfilePhotoUpdateDTO dto,
             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang
     ) {
         return ResponseEntity.ok(profileService.updatePhoto(dto.getPhotoId(), lang));
+    }
+
+    @PutMapping("/status/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AppResponse<String>> status(
+            @PathVariable("id") Integer id,
+            @RequestBody ProfileStatusDTO dto,
+            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang
+    ) {
+        return ResponseEntity.ok(profileService.changeStatus(id, dto.getStatus(), lang));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AppResponse<String>> delete(
+            @PathVariable("id") Integer id,
+            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang
+    ) {
+        return ResponseEntity.ok(profileService.delete(id, lang));
     }
 }

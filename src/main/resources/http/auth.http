@@ -8,11 +8,7 @@ GET http://localhost:8080/auth/registration/verification/{profileId}
 
 ### Registration Sms Verification
 POST localhost:8080/auth/registration/sms-verification
-Content-Type: app
-
-
-
-lication/json
+Content-Type: application/json
 
 {
   "phone": "998931051739",

@@ -4,7 +4,6 @@ import api.giybat.uz.entity.ProfileRoleEntity;
 import api.giybat.uz.enums.ProfileRole;
 import api.giybat.uz.repository.ProfileRoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
